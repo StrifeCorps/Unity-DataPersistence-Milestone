@@ -38,8 +38,9 @@ public class MainManager : MonoBehaviour
             }
         }
 
-        BestScoreText.text = "Best Score : " + GameManager.Instance.name + " : score ";
-    }
+        BestScoreText.text = "Best Score : " + GameManager.Instance.playerName + " : " + GameManager.Instance.playerScore;
+		ScoreText.text = GameManager.Instance.currentPlayer + " Score : " + m_Points;
+	}
 
     private void Update()
     {
@@ -68,12 +69,19 @@ public class MainManager : MonoBehaviour
     void AddPoint(int point)
     {
         m_Points += point;
-        ScoreText.text = $"Score : {m_Points}";
+        ScoreText.text = GameManager.Instance.currentPlayer + " Score : " + m_Points;
     }
 
     public void GameOver()
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
-    }
+		
+        if (m_Points > GameManager.Instance.playerScore)
+        {
+            GameManager.Instance.playerScore = m_Points;
+            GameManager.Instance.playerName = GameManager.Instance.currentPlayer;
+            GameManager.Instance.Save();
+        }
+	}
 }

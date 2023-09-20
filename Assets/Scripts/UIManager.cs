@@ -14,7 +14,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateInputUserName()
     {
-        GameManager.Instance.name = userInput.text;
+        GameManager.Instance.currentPlayer = userInput.text;
     }
 
     public void StartNewGame()
